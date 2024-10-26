@@ -21,27 +21,24 @@ public class TSP {
         String fileName = "C:/Users/elena/Documents/UPO/ALGORITMICA I/EPDS/EPD4_EVALUABLE/tsp/a280.tsp";
         List<Ciudad> ciudades = Ciudad.readTSPFile(fileName);
 
-        // Parámetro: número de iteraciones para BA1
-        int numIteraciones = 1000;
+        
         int[] n = {100, 500, 1000, 5000};
         
-        for(int iteraciones : n){
+        for (int iteraciones : n) {
+            System.out.println("\nNúmero de iteraciones: " + iteraciones);
             long inicio = System.nanoTime();
-            List<Ciudad> mejorRuta = Ciudad.randomSearchBA1(ciudades, numIteraciones);
+            List<Ciudad> mejorRuta = Ciudad.randomSearchBA1(ciudades, iteraciones);
             long fin = System.nanoTime();
             long tiempoTotal = fin - inicio;
-            System.out.println("Iteraciones: " + iteraciones + " Tiempo: " + tiempoTotal + " ns");
-            //System.out.println("Solucion obtenida: " + Arrays.toString(mejorRuta));
-            System.out.println("Solucion obtenida: " + mejorRuta);
+            System.out.println("Tiempo: " + tiempoTotal + " ns");
+
+            // Imprimir la mejor ruta
+            StringBuilder rutaStr = new StringBuilder("Mejor ruta encontrada: ");
+            for (Ciudad ciudad : mejorRuta) {
+                rutaStr.append(ciudad.getId()).append(" -> ");
+            }
+            rutaStr.append(mejorRuta.get(0).getId()); // Cerrar el ciclo volviendo a la primera ciudad
+            System.out.println(rutaStr);
         }
-
-        // Ejecutar Búsqueda Aleatoria (BA1)
-        //List<Ciudad> mejorRuta = Ciudad.randomSearchBA1(ciudades, numIteraciones);
-
-        // Mostrar la mejor ruta encontrada
-        /*System.out.println("Mejor ruta encontrada:");
-        for (Ciudad ciudad : mejorRuta) {
-            System.out.println(ciudad);
-        }*/
     }
 }
