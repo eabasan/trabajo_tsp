@@ -19,7 +19,7 @@ public class Ciudad {
     private double x;
     private double y;
     private int id;
-    
+    //comentario elena
     public Ciudad(int id, double x, double y) {
         this.id = id;
         this.x = x;
