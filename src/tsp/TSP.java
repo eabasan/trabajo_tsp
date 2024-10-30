@@ -19,7 +19,7 @@ import java.util.Random;
 public class TSP {
 
     public static double[][] inicializarMatrizDistanciaDesdeTSP(String file) {
-        List<Ciudad> ciudades = new ArrayList<>();
+        List<double[]> ciudades = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             boolean isCoordSection = false;
@@ -39,7 +39,7 @@ public class TSP {
                     int id = Integer.parseInt(parts[0]);
                     double x = Double.parseDouble(parts[1]);
                     double y = Double.parseDouble(parts[2]);
-                    ciudades.add(new Ciudad(id, x, y));
+                    ciudades.add(new double[]{id, x, y});
                 }
             }
         } catch (IOException e) {
@@ -52,10 +52,13 @@ public class TSP {
          // Calcula la distancia entre cada par de ciudades
         for (int i = 0; i < numCiudades; i++) {
             for (int j = 0; j < numCiudades; j++) {
-                distancias[i][j] = ciudades.get(i).calculaDistancia(ciudades.get(j));
+                distancias[i][j] = calculaDistancia(ciudades.get(i), ciudades.get(j));
             }
         }
         return distancias;
+    }
+    public static double calculaDistancia(double[] ciudad1, double[] ciudad2) {
+        return Math.sqrt(Math.pow(ciudad1[1] - ciudad2[1], 2) + Math.pow(ciudad1[2] - ciudad2[2], 2));
     }
 
     // Calcula el coste total de un camino completo
